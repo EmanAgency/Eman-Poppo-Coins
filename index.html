@@ -10,72 +10,43 @@
 </head>
 <body>
 <header><b>EMAN AGENCY 🇹🇹</b><span>Poppo Live Coin Top-Up</span></header>
-
 <nav>
 <button class="active" data-p="buy">🪙 Buy Coins</button>
 <button data-p="orders">📋 My Orders</button>
 <button data-p="contact">📞 Contact</button>
 </nav>
-
 <main>
 <section id="buy" class="page active">
 <div class="card">
 <h1>Buy Poppo Coins</h1>
 <div class="notice"><b>Before payment:</b> Please make your request first. When paying, put your name only in the transaction description. After payment, provide your receipt and Poppo Live ID.</div>
-
-<label>Your Name</label>
-<input id="name" placeholder="Enter your name">
-
-<label>Poppo Live ID</label>
-<input id="pid" placeholder="Enter Poppo Live ID">
-
-<label>Coin Package</label>
-<select id="pkg"></select>
-
-<div class="summary">
-<div>Coins<strong id="coins"></strong></div>
-<div>Total<strong id="price"></strong></div>
-</div>
-
+<label>Your Name</label><input id="name" placeholder="Enter your name">
+<label>Poppo Live ID</label><input id="pid" placeholder="Enter Poppo Live ID">
+<label>Coin Package</label><select id="pkg"></select>
+<div class="summary"><div>Coins<strong id="coins"></strong></div><div>Total<strong id="price"></strong></div></div>
 <label>Payment Method</label>
 <select id="pay">
 <option>Bank Transfer</option>
 <option>PayPal</option>
 <option>Binance / USDT (BEP20)</option>
 </select>
-
-<div id="bank" class="paybox">
-<b>Bank Transfer</b>
-<p>Bank details will be added when supplied by Eman Agency.</p>
-</div>
-
-<div id="paypal" class="paybox hidden">
-<b>PayPal</b>
-<p>emanagency82@gmail.com</p>
-</div>
-
+<div id="bank" class="paybox"><b>Bank Transfer</b><p>Bank details will be added when supplied by Eman Agency.</p></div>
+<div id="paypal" class="paybox hidden"><b>PayPal</b><p>emanagency82@gmail.com</p></div>
 <div id="binance" class="paybox hidden">
 <b>Binance — USDT (BNB Smart Chain / BEP20)</b>
-<p class="network"><b>Network:</b> BNB Smart Chain (BEP20)</p>
+<p><b>Network:</b> BNB Smart Chain (BEP20)</p>
 <img class="qr" src="usdt-bep20-qr.png" alt="USDT BEP20 wallet QR code">
 <p><strong>Wallet Address:</strong></p>
 <div class="wallet">0xec05bb37867f5e75a706a1face5304fd40a8f54c</div>
 <button type="button" class="copy" onclick="copyWallet()">Copy Wallet Address</button>
 <p class="hint">Send USDT using the BNB Smart Chain (BEP20) network only.</p>
 </div>
-
-<label>Payment Receipt</label>
-<input id="receipt" type="file" accept="image/*,.pdf">
-
+<label>Payment Receipt</label><input id="receipt" type="file" accept="image/*,.pdf">
 <button id="submit" class="primary">Submit Order</button>
 <div id="result" class="result hidden"></div>
 </div>
 </section>
-
-<section id="orders" class="page">
-<div class="card"><h1>My Orders</h1><div id="list"></div></div>
-</section>
-
+<section id="orders" class="page"><div class="card"><h1>My Orders</h1><div id="list"></div></div></section>
 <section id="contact" class="page">
 <div class="card contact-card">
 <h1>Contact Eman Agency</h1>
@@ -84,7 +55,6 @@
 </div>
 </section>
 </main>
-
 <footer>Eman Agency 🇹🇹 • Poppo Live Coin Top-Up</footer>
 <script src="app.js"></script>
 </body>
