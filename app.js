@@ -1,1 +1,134 @@
-const packages=[];for(let i=1;i<=80;i++)packages.push({coins:21000+(i-1)*14000,price:20+(i-1)*14});const $=x=>document.getElementById(x),pkg=$('pkg');packages.forEach((p,i)=>{let o=document.createElement('option');o.value=i;o.textContent=`${p.coins.toLocaleString()} coins — TT$${p.price.toLocaleString()}`;pkg.appendChild(o)});function update(){let p=packages[+pkg.value];$('coins').textContent=p.coins.toLocaleString();$('price').textContent='TT$'+p.price.toLocaleString()}pkg.onchange=update;update();$('pay').onchange=()=>{let m=$('pay').value;$('bank').classList.toggle('hidden',m!=='Bank Transfer');$('paypal').classList.toggle('hidden',m!=='PayPal');$('binance').classList.toggle('hidden',m!=='Binance / USDT (BEP20)')};document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));b.classList.add('active');$(b.dataset.p).classList.add('active');if(b.dataset.p==='orders')render()});$('submit').onclick=()=>{let name=$('name').value.trim(),pid=$('pid').value.trim(),file=$('receipt').files[0],p=packages[+pkg.value];if(!name||!pid)return alert('Please enter your name and Poppo Live ID.');if(!file)return alert('Please select your payment receipt.');let o={id:'EMN-'+Math.floor(100000+Math.random()*900000),name,pid,coins:p.coins,price:p.price,payment:$('pay').value,status:'Pending',date:new Date().toLocaleString()};let a=JSON.parse(localStorage.getItem('emanOrders')||'[]');a.unshift(o);localStorage.setItem('emanOrders',JSON.stringify(a));$('result').classList.remove('hidden');$('result').innerHTML=`<b>Order submitted!</b><br>Order #: <b>${o.id}</b><br>${o.coins.toLocaleString()} coins — TT$${o.price.toLocaleString()}<br><br>This prototype stores orders locally. A secure backend is required before real customer orders.`};function render(){let a=JSON.parse(localStorage.getItem('emanOrders')||'[]');$('list').innerHTML=a.length?a.map(o=>`<div class="order"><b>${o.id}</b><br>${o.coins.toLocaleString()} coins — TT$${o.price.toLocaleString()}<br>Poppo ID: ${o.pid}<br>Payment: ${o.payment}<br><span class="status">${o.status}</span><br><small>${o.date}</small></div>`).join(''):'<p>No orders yet.</p>'}function copyWallet(){navigator.clipboard?.writeText('0xec05bb37867f5e75a706a1face5304fd40a8f54c').then(()=>alert('Wallet address copied.')).catch(()=>alert('Wallet address: 0xec05bb37867f5e75a706a1face5304fd40a8f54c'))}render();
+const packages=[];
+for(let i=1;i<=80;i++)packages.push({coins:21000+(i-1)*14000,price:20+(i-1)*14});
+const $=x=>document.getElementById(x), pkg=$('pkg');
+packages.forEach((p,i)=>{let o=document.createElement('option');o.value=i;o.textContent=`${p.coins.toLocaleString()} coins — TT$${p.price.toLocaleString()}`;pkg.appendChild(o)});
+function update(){let p=packages[+pkg.value];$('coins').textContent=p.coins.toLocaleString();$('price').textContent='TT$'+p.price.toLocaleString()}
+pkg.onchange=update; update();
+
+$('pay').onchange=()=>{
+  let m=$('pay').value;
+  $('bank').classList.toggle('hidden',m!=='Bank Transfer');
+  $('paypal').classList.toggle('hidden',m!=='PayPal');
+  $('binance').classList.toggle('hidden',m!=='Binance / USDT (BEP20)');
+};
+
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); $(b.dataset.p).classList.add('active');
+});
+
+function showResult(html){$('result').classList.remove('hidden');$('result').innerHTML=html}
+
+$('submit').onclick=async()=>{
+  if(!window.EMAN_SUPABASE_URL || !window.EMAN_SUPABASE_ANON_KEY){
+    return showResult('<b>Setup needed.</b><br>The secure order system has not been connected yet. Please add your Supabase URL and anon key to <b>config.js</b>.');
+  }
+  const name=$('name').value.trim(), pid=$('pid').value.trim(), file=$('receipt').files[0], p=packages[+pkg.value], payment=$('pay').value;
+  if(!name||!pid) return alert('Please enter your name and Poppo Live ID.');
+  if(!file) return alert('Please select your payment receipt.');
+  if(file.size>5*1024*1024) return alert('Receipt must be 5 MB or smaller.');
+
+  const btn=$('submit'); btn.disabled=true; btn.textContent='Submitting...';
+  try{
+    const client=supabase.createClient(window.EMAN_SUPABASE_URL,window.EMAN_SUPABASE_ANON_KEY);
+    const orderNo='EMN-'+Math.floor(100000+Math.random()*900000);
+    const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'');
+    const path=`${orderNo}.${ext}`;
+
+    const upload=await client.storage.from('receipts').upload(path,file,{upsert:false,contentType:file.type||'application/octet-stream'});
+    if(upload.error) throw upload.error;
+
+    const insert=await client.from('orders').insert({
+      order_number:orderNo,name,poppo_id:pid,coins:p.coins,price_ttd:p.price,
+      payment_method:payment,receipt_path:path,status:'Pending'
+    }).select().single();
+    if(insert.error) throw insert.error;
+
+    localStorage.setItem('lastEmanOrder',orderNo);
+    showResult(`<b>Order submitted successfully! 🎉</b><br><br>Order #: <b>${orderNo}</b><br>${p.coins.toLocaleString()} coins — TT$${p.price.toLocaleString()}<br>Payment: ${payment}<br>Status: <b>Pending</b><br><br>Please save your order number. You can use <b>My Orders</b> to check the status.`);
+    $('name').value=''; $('pid').value=''; $('receipt').value='';
+  }catch(e){
+    console.error(e);
+    showResult('<b>We could not submit the order.</b><br>Please check your internet connection and try again. If the problem continues, contact us on WhatsApp.');
+  }finally{btn.disabled=false;btn.textContent='Submit Order'}
+};
+
+async function getOrder(no){
+  if(!window.EMAN_SUPABASE_URL || !window.EMAN_SUPABASE_ANON_KEY) throw new Error('Not connected');
+  const client=supabase.createClient(window.EMAN_SUPABASE_URL,window.EMAN_SUPABASE_ANON_KEY);
+  const r=await client.rpc('lookup_order',{p_order_number:no});
+  if(r.error) throw r.error;
+  return Array.isArray(r.data) ? r.data[0] : r.data;
+}
+
+function showOrderNotification(status, orderNo){
+  const box=$('orderNotice');
+  if(!box)return;
+  if(status==='Completed'){
+    box.innerHTML=`🔔 <b>Order ${orderNo} completed!</b><br>Your Poppo coins have been sent successfully to your Poppo Live ID. Thank you for your purchase!`;
+  }else if(status==='Rejected'){
+    box.innerHTML=`⚠️ <b>Order ${orderNo} was rejected.</b><br>Please contact Eman Agency on WhatsApp for assistance.`;
+  }else if(status==='Processing'){
+    box.innerHTML=`🔔 <b>Order ${orderNo} is being processed.</b><br>We are preparing your Poppo coin top-up.`;
+  }else if(status==='Paid'){
+    box.innerHTML=`🔔 <b>Payment confirmed for ${orderNo}.</b><br>Your order is ready for processing.`;
+  }else return;
+  box.classList.remove('hidden');
+  try{
+    if('Notification' in window && Notification.permission==='granted'){
+      new Notification('Eman Agency — Order Update',{body:box.textContent.replace(/\s+/g,' ').trim()});
+    }
+  }catch(e){}
+}
+
+async function checkOrder(no,silent=false){
+  const row=await getOrder(no);
+  const box=$('lookupResult');
+  if(!row){
+    if(!silent) box.innerHTML='<b>Order not found.</b><br>Check the order number and try again.';
+    return null;
+  }
+  box.classList.remove('hidden');
+  box.innerHTML=`<b>Order ${row.order_number}</b><br>${Number(row.coins).toLocaleString()} coins — TT$${Number(row.price_ttd).toLocaleString()}<br>Payment: ${row.payment_method}<br>Status: <b>${row.status}</b>`;
+
+  const key='emanStatus_'+row.order_number;
+  const previous=localStorage.getItem(key);
+  if(previous && previous!==row.status) showOrderNotification(row.status,row.order_number);
+  localStorage.setItem(key,row.status);
+  localStorage.setItem('lastEmanOrder',row.order_number);
+  return row;
+}
+
+$('lookupBtn').onclick=async()=>{
+  const no=$('lookup').value.trim().toUpperCase();
+  const box=$('lookupResult'); box.classList.remove('hidden');
+  if(!no) return box.innerHTML='Please enter an order number.';
+  try{
+    await checkOrder(no,false);
+    if('Notification' in window && Notification.permission==='default'){
+      try{ await Notification.requestPermission(); }catch(e){}
+    }
+  }catch(e){box.innerHTML='Unable to check the order right now. Please try again.'}
+};
+
+let orderMonitor=null;
+function startOrderMonitor(){
+  const last=localStorage.getItem('lastEmanOrder');
+  if(!last || orderMonitor) return;
+  orderMonitor=setInterval(async()=>{
+    try{
+      const row=await checkOrder(last,true);
+      if(row && (row.status==='Completed' || row.status==='Rejected')){
+        // Keep checking so the customer can revisit the status, but avoid unnecessary rapid requests.
+      }
+    }catch(e){}
+  },10000);
+}
+startOrderMonitor();
+
+function copyWallet(){
+  navigator.clipboard?.writeText('0xec05bb37867f5e75a706a1face5304fd40a8f54c')
+    .then(()=>alert('Wallet address copied.'))
+    .catch(()=>alert('Wallet address: 0xec05bb37867f5e75a706a1face5304fd40a8f54c'));
+}
