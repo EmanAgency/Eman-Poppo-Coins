@@ -1,9 +1,7 @@
 # Eman Agency 🇹🇹 Poppo Coin App
 
-Mobile-friendly front-end prototype for Eman Agency Poppo Live coin sales.
+Payment methods: Bank Transfer, PayPal, and Binance / USDT on BNB Smart Chain (BEP20).
 
-## GitHub
-Upload these files to a GitHub repository. For GitHub Pages: Settings → Pages → Deploy from branch → main → /root.
+USDT BEP20 wallet: `0xec05bb37867f5e75a706a1face5304fd40a8f54c`
 
-## Before real launch
-This version is a prototype. Orders are stored in the customer's browser only and receipt files are not uploaded. Add a secure backend/database, receipt storage, admin authentication, server-side validation, actual bank details, HTTPS, privacy/terms pages, and verify compliance with Poppo Live's current policies before taking real customer orders.
+Before real launch, connect a secure backend/database, receipt storage, admin authentication, server-side validation, actual bank details, HTTPS, and privacy/terms pages. Verify compliance with Poppo Live's current policies before accepting customer orders.
