@@ -1,8 +1,19 @@
 const packages=[];
 for(let i=1;i<=80;i++)packages.push({coins:21000+(i-1)*14000,price:20+(i-1)*14});
 const $=x=>document.getElementById(x), pkg=$('pkg');
-packages.forEach((p,i)=>{let o=document.createElement('option');o.value=i;o.textContent=`${p.coins.toLocaleString()} coins — TT$${p.price.toLocaleString()}`;pkg.appendChild(o)});
-function update(){let p=packages[+pkg.value];$('coins').textContent=p.coins.toLocaleString();$('price').textContent='TT$'+p.price.toLocaleString()}
+packages.forEach((p,i)=>{
+  let o=document.createElement('option');
+  o.value=i;
+  const usd=(p.price/7).toFixed(2);
+  o.textContent=`${p.coins.toLocaleString()} coins — TT$${p.price.toLocaleString()} / US$${usd} USDT`;
+  pkg.appendChild(o);
+});
+function update(){
+  let p=packages[+pkg.value];
+  const usd=(p.price/7).toFixed(2);
+  $('coins').textContent=p.coins.toLocaleString();
+  $('price').textContent=`TT$${p.price.toLocaleString()} / US$${usd} USDT`;
+}
 pkg.onchange=update; update();
 
 const paymentInfo={
