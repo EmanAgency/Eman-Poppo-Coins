@@ -184,3 +184,43 @@ function copyWallet(){
     .then(()=>alert('Wallet address copied.'))
     .catch(()=>alert('Wallet address: '+address));
 }
+
+/* Eman Poppo Coins And Points — PWA Install */
+let deferredInstallPrompt = null;
+const installAppButton = document.getElementById('installApp');
+
+window.addEventListener('beforeinstallprompt', event => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+
+  if (installAppButton) {
+    installAppButton.classList.remove('hidden');
+  }
+});
+
+installAppButton?.addEventListener('click', async () => {
+  if (!deferredInstallPrompt) return;
+
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+
+  deferredInstallPrompt = null;
+  installAppButton.classList.add('hidden');
+});
+
+window.addEventListener('appinstalled', () => {
+  deferredInstallPrompt = null;
+
+  if (installAppButton) {
+    installAppButton.classList.add('hidden');
+  }
+});
+
+/* Register service worker */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(error => {
+      console.error('Service worker registration failed:', error);
+    });
+  });
+}
