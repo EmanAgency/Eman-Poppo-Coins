@@ -42,3 +42,48 @@ async function changeStatus(id,status){
  if(r.error)alert('Could not update status.'); else loadOrders();
 }
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+function showAdminNotification(message){
+ const box=$('adminNotice');
+ if(!box)return;
+ box.classList.remove('hidden');
+ box.innerHTML=message;
+ box.style.cssText='padding:14px;margin:12px 0;border-radius:12px;background:#171021;border:1px solid #8B5CF6;font-weight:600;';
+}
+
+let knownOrderIds=new Set();
+
+async function checkForNewOrders(){
+ if(!client)return;
+ const r=await client.from('orders').select('id,order_number,name,coins,price_ttd,status,created_at').order('created_at',{ascending:false}).limit(20);
+ if(r.error)return;
+
+ if(knownOrderIds.size===0){
+   r.data.forEach(o=>knownOrderIds.add(o.id));
+   return;
+ }
+
+ r.data.forEach(o=>{
+   if(!knownOrderIds.has(o.id)){
+     knownOrderIds.add(o.id);
+     showAdminNotification(
+       `🔔 <b>New Order Received!</b><br><br>
+        Order #: <b>${escapeHtml(o.order_number)}</b><br>
+        Customer: ${escapeHtml(o.name)}<br>
+        Poppo ID: ${escapeHtml(o.poppo_id || '')}<br>
+        ${Number(o.coins).toLocaleString()} coins — TT$${Number(o.price_ttd).toLocaleString()}<br>
+        Status: <b>${escapeHtml(o.status)}</b>`
+     );
+
+     try{
+       if('Notification' in window && Notification.permission==='granted'){
+         new Notification('Eman Poppo Coins — New Order',{
+           body:`${o.order_number} — ${Number(o.coins).toLocaleString()} coins — TT$${Number(o.price_ttd).toLocaleString()}`
+         });
+       }
+     }catch(e){}
+   }
+ });
+}
+
+setInterval(checkForNewOrders,10000);
