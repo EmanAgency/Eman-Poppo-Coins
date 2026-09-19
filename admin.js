@@ -1,16 +1,37 @@
 const $=x=>document.getElementById(x);
 const client=(window.EMAN_SUPABASE_URL&&window.EMAN_SUPABASE_ANON_KEY&&window.EMAN_SUPABASE_URL.startsWith('http'))
- ? supabase.createClient(window.EMAN_SUPABASE_URL,window.EMAN_SUPABASE_ANON_KEY):null;
+ ? supabase.createClient(window.EMAN_SUPABASE_URL,window.EMAN_SUPABASE_ANON_KEY,{
+     auth:{
+       storage:window.sessionStorage,
+       persistSession:true,
+       autoRefreshToken:true,
+       detectSessionInUrl:false
+     }
+   }):null;
 
 $('login').onclick=async()=>{
- if(!client)return $('loginMsg').classList.remove('hidden'),$('loginMsg').innerHTML='Add your Supabase URL and anon key to config.js first.';
- const email=$('email').value.trim(), password=$('password').value;
+ if(!client){
+   $('loginMsg').classList.remove('hidden');
+   $('loginMsg').innerHTML='Add your Supabase URL and anon key to config.js first.';
+   return;
+ }
+
+ const email=$('email').value.trim();
+ const password=$('password').value;
+
  const r=await client.auth.signInWithPassword({email,password});
- if(r.error){$('loginMsg').classList.remove('hidden');$('loginMsg').textContent=r.error.message;return}
- $('login').closest('section,div').classList.add('hidden');
- $('loginMsg').classList.add('hidden');
+
+ if(r.error){
+   $('loginMsg').classList.remove('hidden');
+   $('loginMsg').textContent=r.error.message;
+   return;
+ }
+
+ $('loginScreen').classList.add('hidden');
  $('dashboard').classList.remove('hidden');
- $('dashboard').style.display='block';
+ $('dashboard').classList.add('fullscreen');
+ document.body.classList.add('admin-logged-in');
+
  loadOrders();
 };
 

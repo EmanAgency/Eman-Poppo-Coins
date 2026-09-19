@@ -1,28 +1,60 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Eman Agency — Admin Orders</title>
 <link rel="stylesheet" href="style.css">
+<style>
+#loginScreen.hidden,
+#dashboard.hidden{display:none!important}
+
+#dashboard.fullscreen{
+position:fixed;
+inset:0;
+z-index:9999;
+margin:0;
+width:100%;
+height:100%;
+max-width:none;
+overflow-y:auto;
+border-radius:0;
+box-sizing:border-box;
+}
+
+body.admin-logged-in header{display:none}
+body.admin-logged-in main{margin:0;padding:0}
+</style>
 </head>
 <body>
+
 <header><b>EMAN AGENCY 🇹🇹</b><span>Admin Order Dashboard</span></header>
+
 <main>
-<div class="card">
+
+<div id="loginScreen" class="card">
 <h1>Admin Login</h1>
 <input id="email" type="email" placeholder="Admin email">
 <input id="password" type="password" placeholder="Password" style="margin-top:10px">
 <button id="login" class="primary">Login</button>
 <div id="loginMsg" class="result hidden"></div>
 </div>
+
 <div id="dashboard" class="card hidden">
-<div class="admin-top"><h1>Orders</h1><button id="logout" class="copy">Log out</button></div>
+<div class="admin-top">
+<h1>Orders</h1>
+<button id="logout" class="copy">Log out</button>
+</div>
+
 <div id="adminNotice" class="hidden"></div>
 <div id="orders"></div>
+
 </div>
 </main>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script src="admin.js"></script>
+
 </body>
 </html>
