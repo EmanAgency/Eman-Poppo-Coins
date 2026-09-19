@@ -7,7 +7,11 @@ $('login').onclick=async()=>{
  const email=$('email').value.trim(), password=$('password').value;
  const r=await client.auth.signInWithPassword({email,password});
  if(r.error){$('loginMsg').classList.remove('hidden');$('loginMsg').textContent=r.error.message;return}
- $('loginMsg').classList.add('hidden'); $('dashboard').classList.remove('hidden'); loadOrders();
+ $('login').closest('section,div').classList.add('hidden');
+ $('loginMsg').classList.add('hidden');
+ $('dashboard').classList.remove('hidden');
+ $('dashboard').style.display='block';
+ loadOrders();
 };
 
 $('logout').onclick=async()=>{await client.auth.signOut();$('dashboard').classList.add('hidden')};
