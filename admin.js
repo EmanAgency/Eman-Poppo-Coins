@@ -14,7 +14,7 @@ $('logout').onclick=async()=>{await client.auth.signOut();$('dashboard').classLi
 
 async function loadOrders(){
  const r=await client.from('orders').select('*').order('created_at',{ascending:false});
- if(r.error){$('orders').innerHTML='<p>Could not load orders.</p>';return}
+ if(r.error){console.error(r.error);$('orders').innerHTML='<p><b>Could not load orders.</b><br>'+escapeHtml(r.error.message||String(r.error))+'</p>';return}
  $('orders').innerHTML=r.data.length?r.data.map(o=>`
  <div class="order">
  <b>${o.order_number}</b> — <span>${o.status}</span><br>
