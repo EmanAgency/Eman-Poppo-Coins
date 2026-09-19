@@ -37,6 +37,22 @@ $('login').onclick=async()=>{
 
 $('logout').onclick=async()=>{await client.auth.signOut();$('dashboard').classList.add('hidden')};
 
+async function restoreAdminSession(){
+ if(!client)return;
+
+ const r=await client.auth.getSession();
+ if(r.error || !r.data.session)return;
+
+ $('loginScreen').classList.add('hidden');
+ $('dashboard').classList.remove('hidden');
+ $('dashboard').classList.add('fullscreen');
+ document.body.classList.add('admin-logged-in');
+
+ loadOrders();
+}
+
+restoreAdminSession();
+
 async function loadOrders(){
  const r=await client.from('orders').select('*').order('created_at',{ascending:false});
  if(r.error){console.error(r.error);$('orders').innerHTML='<p><b>Could not load orders.</b><br>'+escapeHtml(r.error.message||String(r.error))+'</p>';return}
