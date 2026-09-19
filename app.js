@@ -48,7 +48,7 @@ $('submit').onclick=async()=>{
     $('name').value=''; $('pid').value=''; $('receipt').value='';
   }catch(e){
     console.error(e);
-    showResult('<b>We could not submit the order.</b><br>Please check your internet connection and try again. If the problem continues, contact us on WhatsApp.');
+    showResult('<b>Submission error:</b><br>' + (e.message || String(e)).replace(/</g,'&lt;').replace(/>/g,'&gt;'));
   }finally{btn.disabled=false;btn.textContent='Submit Order'}
 };
 
