@@ -5,10 +5,52 @@ packages.forEach((p,i)=>{let o=document.createElement('option');o.value=i;o.text
 function update(){let p=packages[+pkg.value];$('coins').textContent=p.coins.toLocaleString();$('price').textContent='TT$'+p.price.toLocaleString()}
 pkg.onchange=update; update();
 
-$('pay').value='Binance / USDT (BEP20)';
+const paymentInfo={
+  'USDT — BEP20 (BNB Smart Chain)':{
+    title:'USDT — BNB Smart Chain (BEP20)',
+    network:'BNB Smart Chain (BEP20)',
+    address:'0xec05bb37867f5e75a706a1face5304fd40a8f54c',
+    qr:'usdt-bep20-qr.png',
+    hint:'Send USDT using the BNB Smart Chain (BEP20) network only.'
+  },
+  'USDT — TRC20 (Tron)':{
+    title:'USDT — Tron (TRC20)',
+    network:'Tron (TRC20)',
+    address:'TXcywV3CTM9ZdXAQRcBMWVtaM4TfM2GGzU',
+    qr:'',
+    hint:'Send USDT using the Tron (TRC20) network only.'
+  },
+  'USDT — ERC20 (Ethereum)':{
+    title:'USDT — Ethereum (ERC20)',
+    network:'Ethereum (ERC20)',
+    address:'0xec05bb37867f5e75a706a1face5304fd40a8f54c',
+    qr:'',
+    hint:'Send USDT using the Ethereum (ERC20) network only.'
+  }
+};
+
+function updatePayment(){
+  const info=paymentInfo[$('pay').value];
+  if(!info)return;
+
+  $('paymentTitle').textContent=info.title;
+  $('paymentNetwork').textContent=info.network;
+  $('walletAddress').textContent=info.address;
+  $('paymentHint').textContent=info.hint;
+
+  if(info.qr){
+    $('qrBox').classList.remove('hidden');
+  }else{
+    $('qrBox').classList.add('hidden');
+  }
+}
+
+$('pay').value='USDT — BEP20 (BNB Smart Chain)';
+$('pay').onchange=updatePayment;
 $('bank').classList.add('hidden');
 $('paypal').classList.add('hidden');
 $('binance').classList.remove('hidden');
+updatePayment();
 
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
@@ -126,7 +168,8 @@ function startOrderMonitor(){
 startOrderMonitor();
 
 function copyWallet(){
-  navigator.clipboard?.writeText('0xec05bb37867f5e75a706a1face5304fd40a8f54c')
+  const address=$('walletAddress').textContent.trim();
+  navigator.clipboard?.writeText(address)
     .then(()=>alert('Wallet address copied.'))
-    .catch(()=>alert('Wallet address: 0xec05bb37867f5e75a706a1face5304fd40a8f54c'));
+    .catch(()=>alert('Wallet address: '+address));
 }

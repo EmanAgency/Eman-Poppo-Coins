@@ -26,18 +26,30 @@
 <div class="summary"><div>Coins<strong id="coins"></strong></div><div>Total<strong id="price"></strong></div></div>
 <label>Payment Method</label>
 <select id="pay">
-<option selected>Binance / USDT (BEP20)</option>
+<option selected>USDT — BEP20 (BNB Smart Chain)</option>
+<option>USDT — TRC20 (Tron)</option>
+<option>USDT — ERC20 (Ethereum)</option>
 </select>
-<div id="bank" class="paybox hidden"><b>Bank Transfer</b><p>Bank details will be added when supplied by Eman Agency.</p></div>
-<div id="paypal" class="paybox hidden"><b>PayPal</b><p>emanagency82@gmail.com</p></div>
+
+<div id="bank" class="paybox hidden"></div>
+<div id="paypal" class="paybox hidden"></div>
+
 <div id="binance" class="paybox">
-<b>Binance — USDT (BNB Smart Chain / BEP20)</b>
-<p><b>Network:</b> BNB Smart Chain (BEP20)</p>
+<b id="paymentTitle">USDT — BNB Smart Chain (BEP20)</b>
+<p><b>Network:</b> <span id="paymentNetwork">BNB Smart Chain (BEP20)</span></p>
+
+<div id="qrBox">
 <img class="qr" src="usdt-bep20-qr.png" alt="USDT BEP20 wallet QR code">
+</div>
+
 <p><strong>Wallet Address:</strong></p>
-<div class="wallet">0xec05bb37867f5e75a706a1face5304fd40a8f54c</div>
+<div id="walletAddress" class="wallet">0xec05bb37867f5e75a706a1face5304fd40a8f54c</div>
+
 <button type="button" class="copy" onclick="copyWallet()">Copy Wallet Address</button>
-<p class="hint">Send USDT using the BNB Smart Chain (BEP20) network only.</p>
+
+<p id="paymentHint" class="hint">
+Send USDT using the BNB Smart Chain (BEP20) network only.
+</p>
 </div>
 <label>Payment Receipt</label>
 <input id="receipt" type="file" accept="image/*,.pdf">
