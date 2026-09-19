@@ -5,12 +5,10 @@ packages.forEach((p,i)=>{let o=document.createElement('option');o.value=i;o.text
 function update(){let p=packages[+pkg.value];$('coins').textContent=p.coins.toLocaleString();$('price').textContent='TT$'+p.price.toLocaleString()}
 pkg.onchange=update; update();
 
-$('pay').onchange=()=>{
-  let m=$('pay').value;
-  $('bank').classList.toggle('hidden',m!=='Bank Transfer');
-  $('paypal').classList.toggle('hidden',m!=='PayPal');
-  $('binance').classList.toggle('hidden',m!=='Binance / USDT (BEP20)');
-};
+$('pay').value='Binance / USDT (BEP20)';
+$('bank').classList.add('hidden');
+$('paypal').classList.add('hidden');
+$('binance').classList.remove('hidden');
 
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
