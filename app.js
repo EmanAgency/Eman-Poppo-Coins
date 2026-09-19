@@ -40,7 +40,7 @@ $('submit').onclick=async()=>{
     const insert=await client.from('orders').insert({
       order_number:orderNo,name,poppo_id:pid,coins:p.coins,price_ttd:p.price,
       payment_method:payment,receipt_path:path,status:'Pending'
-    }).select().single();
+    });
     if(insert.error) throw insert.error;
 
     localStorage.setItem('lastEmanOrder',orderNo);
