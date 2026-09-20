@@ -199,7 +199,10 @@ window.addEventListener('beforeinstallprompt', event => {
 });
 
 installAppButton?.addEventListener('click', async () => {
-  if (!deferredInstallPrompt) return;
+  if (!deferredInstallPrompt) {
+    alert('To install Eman Poppo: tap Chrome ⋮ menu, then choose Add to Home screen or Install app.');
+    return;
+  }
 
   deferredInstallPrompt.prompt();
   await deferredInstallPrompt.userChoice;
