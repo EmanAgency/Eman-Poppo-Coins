@@ -28,14 +28,14 @@ const paymentInfo={
     title:'USDT — Tron (TRC20)',
     network:'Tron (TRC20)',
     address:'TXcywV3CTM9ZdXAQRcBMWVtaM4TfM2GGzU',
-    qr:'',
+    qr:'usdt-trc20-qr.png',
     hint:'Send USDT using the Tron (TRC20) network only.'
   },
   'USDT — ERC20 (Ethereum)':{
     title:'USDT — Ethereum (ERC20)',
     network:'Ethereum (ERC20)',
     address:'0xec05bb37867f5e75a706a1face5304fd40a8f54c',
-    qr:'',
+    qr:'usdt-erc20-qr.png',
     hint:'Send USDT using the Ethereum (ERC20) network only.'
   }
 };
