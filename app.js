@@ -58,7 +58,7 @@ function updatePayment(){
   }
 
 $('pay').value='USDT — BEP20 (BNB Smart Chain)';
-$('pay').onchange=updatePayment;
+$('pay').addEventListener('change', updatePayment);
 $('bank').classList.add('hidden');
 $('paypal').classList.add('hidden');
   $('bankTransferBtn')?.addEventListener('click',()=>{
