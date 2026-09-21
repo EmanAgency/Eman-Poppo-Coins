@@ -50,16 +50,20 @@ function updatePayment(){
   $('paymentHint').textContent=info.hint;
 
   if(info.qr){
-    $('qrBox').classList.remove('hidden');
-  }else{
-    $('qrBox').classList.add('hidden');
+  $('paymentQr').src=info.qr;
+  $('paymentQr').alt=info.title+' wallet QR code';
+  $('qrBox').classList.remove('hidden');
+}else{
+  $('qrBox').classList.add('hidden');
   }
-}
 
 $('pay').value='USDT — BEP20 (BNB Smart Chain)';
 $('pay').onchange=updatePayment;
 $('bank').classList.add('hidden');
 $('paypal').classList.add('hidden');
+  $('bankTransferBtn')?.addEventListener('click',()=>{
+  alert('🏦 Bank Transfer\n\nPlease contact Eman Agency on WhatsApp for bank transfer details. Do not send any payment until we confirm the transaction with you.');
+});
 $('binance').classList.remove('hidden');
 updatePayment();
 
