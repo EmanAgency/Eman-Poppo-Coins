@@ -41,32 +41,52 @@ const paymentInfo={
 };
 
 function updatePayment(){
-  const info=paymentInfo[$('pay').value];
-  if(!info)return;
+  const selected = $('pay').value;
 
-  $('paymentTitle').textContent=info.title;
-  $('paymentNetwork').textContent=info.network;
-  $('walletAddress').textContent=info.address;
-  $('paymentHint').textContent=info.hint;
+  let info;
 
-  if(info.qr){
-  $('paymentQr').src=info.qr;
-  $('paymentQr').alt=info.title+' wallet QR code';
-  $('qrBox').classList.remove('hidden');
-}else{
-  $('qrBox').classList.add('hidden');
+  if(selected === 'USDT — BEP20 (BNB Smart Chain)'){
+    info = {
+      title:'USDT — BNB Smart Chain (BEP20)',
+      network:'BNB Smart Chain (BEP20)',
+      address:'0xec05bb37867f5e75a706a1face5304fd40a8f54c',
+      qr:'usdt-bep20-qr.png',
+      hint:'Send USDT using the BNB Smart Chain (BEP20) network only.'
+    };
   }
 
-$('pay').value='USDT — BEP20 (BNB Smart Chain)';
-$('pay').addEventListener('change', updatePayment);
-$('bank').classList.add('hidden');
-$('paypal').classList.add('hidden');
-  $('bankTransferBtn')?.addEventListener('click',()=>{
-  alert('🏦 Bank Transfer\n\nPlease contact Eman Agency on WhatsApp for bank transfer details. Do not send any payment until we confirm the transaction with you.');
-});
-$('binance').classList.remove('hidden');
-updatePayment();
+  else if(selected === 'USDT — TRC20 (Tron)'){
+    info = {
+      title:'USDT — Tron (TRC20)',
+      network:'Tron (TRC20)',
+      address:'TXcywV3CTM9ZdXAQRcBMWVtaM4TfM2GGzU',
+      qr:'usdt-trc20-qr.png',
+      hint:'Send USDT using the Tron (TRC20) network only.'
+    };
+  }
 
+  else if(selected === 'USDT — ERC20 (Ethereum)'){
+    info = {
+      title:'USDT — Ethereum (ERC20)',
+      network:'Ethereum (ERC20)',
+      address:'0xec05bb37867f5e75a706a1face5304fd40a8f54c',
+      qr:'usdt-erc20-qr.png',
+      hint:'Send USDT using the Ethereum (ERC20) network only.'
+    };
+  }
+
+  if(!info) return;
+
+  $('paymentTitle').textContent = info.title;
+  $('paymentNetwork').textContent = info.network;
+  $('walletAddress').textContent = info.address;
+  $('paymentHint').textContent = info.hint;
+
+  $('paymentQr').src = info.qr;
+  $('paymentQr').alt = info.title + ' wallet QR code';
+
+  $('qrBox').classList.remove('hidden');
+}
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
