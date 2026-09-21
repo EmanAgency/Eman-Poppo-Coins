@@ -82,7 +82,7 @@ function updatePayment(){
   $('walletAddress').textContent = info.address;
   $('paymentHint').textContent = info.hint;
 
-  $('paymentQr').src = info.qr;
+  $('paymentQr').setAttribute('src', info.qr);
   $('paymentQr').alt = info.title + ' wallet QR code';
 
   $('qrBox').classList.remove('hidden');
