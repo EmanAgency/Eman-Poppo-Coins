@@ -251,3 +251,7 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
+
+$('bankTransferBtn')?.addEventListener('click',()=>{
+  alert('Contact Us\n\nPlease contact Eman Agency on WhatsApp for bank transfer details.');
+});
