@@ -92,8 +92,6 @@ $('pay').addEventListener('change', updatePayment);
 updatePayment();
 
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
-}
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   b.classList.add('active'); $(b.dataset.p).classList.add('active');
