@@ -85,7 +85,13 @@ function updatePayment(){
   $('paymentQr').setAttribute('src', info.qr);
   $('paymentQr').alt = info.title + ' wallet QR code';
 
-  $('qrBox').classList.remove('hidden');
+    $('qrBox').classList.remove('hidden');
+}
+
+$('pay').addEventListener('change', updatePayment);
+updatePayment();
+
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
 }
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
