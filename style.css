@@ -356,3 +356,18 @@ footer{
     border-radius:19px;
   }
 }
+
+.shop-intro{padding:28px 4px 24px}.shop-intro h1{font-size:clamp(28px,6vw,42px);line-height:1.1;max-width:540px}.eyebrow{font-size:12px;letter-spacing:1.5px;font-weight:700;color:#c4b5fd}.app-links,.quick-amounts{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.app-links a,.quick-amounts button{border:1px solid #8061a8;border-radius:24px;padding:10px 16px;color:inherit;background:#39234e;text-decoration:none}.brand-heading{display:flex;align-items:center;gap:16px;margin-bottom:20px}.brand-heading img{width:76px;height:76px;object-fit:cover;border-radius:18px;flex-shrink:0}.brand-heading h1{margin:4px 0;font-size:26px}.brand-heading p{margin:0}.card[id]{scroll-margin-top:20px}.whatsapp[aria-disabled=true]{opacity:.5;pointer-events:none}input,select{box-sizing:border-box;min-width:0} .summary strong{overflow-wrap:anywhere}header{gap:10px;flex-wrap:wrap}
+
+/* App tabs and native touch carousel */
+.app-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:22px 0 8px}
+.app-links [role=tab]{appearance:none;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;min-width:0;width:100%;padding:12px 4px;border:1px solid #72558e;border-radius:18px;background:#2c1d40;color:#eee6fa;font:inherit;font-size:clamp(12px,3.4vw,15px);font-weight:600;cursor:pointer}
+.app-links [role=tab] img{width:36px;height:36px;border-radius:10px;object-fit:cover;pointer-events:none}
+.app-links [role=tab][aria-selected=true]{background:linear-gradient(135deg,#8957ef,#6321d6);border-color:#ba91ff;box-shadow:0 5px 20px #7941db44;color:#fff}
+.app-links [role=tab]:focus-visible{outline:3px solid #ffdf80;outline-offset:3px}
+.swipe-hint{color:#bfb0d6;font-size:12px;text-align:center;margin:12px 0 0}
+.coin-panels{display:flex;align-items:flex-start;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;position:relative;width:100%}
+.coin-panels::-webkit-scrollbar{display:none}
+.coin-slide{display:flow-root;flex:0 0 100%;min-width:0;width:100%;scroll-snap-align:start;scroll-snap-stop:always;padding:4px 2px 0;box-sizing:border-box}
+.coin-slide .card{width:100%;box-sizing:border-box}
+@media(prefers-reduced-motion:reduce){.coin-panels{scroll-behavior:auto}}

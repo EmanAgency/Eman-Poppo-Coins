@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#101828">
-<title>Eman Poppo Coins And Points</title>
+<title>EC Live Group Coins & Points</title>
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
-<header><b>EMAN AGENCY 🇹🇹</b><span>Poppo Coins & Points</span></header>
-<button id="installApp" class="primary" type="button">📲 Download App</button>
+<header><b>EMAN AGENCY 🇹🇹</b><span>Poppo · Glow · Eman Live</span></header>
+
 
 <nav>
 <button class="active" data-p="buy">🪙 Buy Coins</button>
@@ -18,26 +18,9 @@
 <button data-p="contact">📞 Contact</button>
 </nav>
 <main>
-<section id="buy" class="page active">
-<div class="card">
-<h1>💰 Sell Points</h1>
-<p>Need TTD? Eman Poppo Coins And Points buys Poppo Points.</p>
-
-<div class="paybox">
-<b>Our Current Rate</b>
-<p><strong>100,000 Poppo Points = TT$70</strong></p>
-<p class="hint">US$1 = TT$7</p>
-</div>
-
-<p><strong>Important:</strong> Contact Eman Poppo Coins And Points on WhatsApp before sending any Poppo Points.</p>
-<p class="hint">We will confirm the current rate and transaction details with you first. Do not send points until your transaction has been confirmed.</p>
-
-<a class="whatsapp" href="https://wa.me/18683876714" target="_blank" rel="noopener">💬 Contact us on WhatsApp</a>
-</div>
-
-
-<div class="card">
-<h1>Buy Poppo Coins</h1>
+<section id="buy" class="page active"><div class="shop-intro"><p class="eyebrow">EC LIVE GROUP · TRINIDAD & TOBAGO</p><h1>Your next top-up starts here.</h1><p>Choose your app, check the price and order with confidence.</p><div class="app-links" role="tablist" aria-label="Choose a live app"><button type="button" id="poppo-tab" role="tab" aria-controls="poppo-panel" aria-selected="true" tabindex="0" data-shop="0"><img src="assets/poppo.webp" alt="" width="36" height="36"><span>Poppo Live</span></button><button type="button" id="glow-tab" role="tab" aria-controls="glow-panel" aria-selected="false" tabindex="-1" data-shop="1"><img src="assets/glow.webp" alt="" width="36" height="36"><span>Glow Live</span></button><button type="button" id="eman-tab" role="tab" aria-controls="eman-panel" aria-selected="false" tabindex="-1" data-shop="2"><img src="assets/eman.webp" alt="" width="36" height="36"><span>Eman Live</span></button></div><p class="swipe-hint" id="shop-swipe-hint">Tap an app or swipe left and right to switch.</p></div>
+<div class="coin-panels" id="coin-panels" aria-describedby="shop-swipe-hint"><section class="coin-slide" id="poppo-panel" role="tabpanel" aria-labelledby="poppo-tab"><div class="card" id="poppo-shop">
+<div class="brand-heading"><img src="assets/poppo.webp" alt="Poppo Live logo"><div><p class="eyebrow">POPPO LIVE</p><h1>Buy Poppo Coins</h1></div></div>
 <div class="notice"><b>How it works:</b> Choose your coin package, make your payment, upload your receipt, and submit your order. We will review the payment and process the coins.</div>
 <label>Your Name</label><input id="name" placeholder="Enter your name" autocomplete="name">
 <label>Poppo Live ID</label><input id="pid" placeholder="Enter Poppo Live ID">
@@ -76,8 +59,21 @@ Send USDT using the BNB Smart Chain (BEP20) network only.
 <p class="hint">Receipt is securely uploaded with your order. Maximum 5 MB.</p>
 <button id="submit" class="primary">Submit Order</button>
 <div id="result" class="result hidden"></div>
+</div><div class="card">
+<h1>💰 Sell Points</h1>
+<p>Need TTD? EC Live Group Coins & Points buys Poppo Points.</p>
+
+<div class="paybox">
+<b>Our Current Rate</b>
+<p><strong>100,000 Poppo Points = TT$70</strong></p>
+<p class="hint">US$1 = TT$7</p>
 </div>
-</section>
+
+<p><strong>Important:</strong> Contact EC Live Group Coins & Points on WhatsApp before sending any Poppo Points.</p>
+<p class="hint">We will confirm the current rate and transaction details with you first. Do not send points until your transaction has been confirmed.</p>
+
+<a class="whatsapp" href="https://wa.me/18683876714" target="_blank" rel="noopener">💬 Contact us on WhatsApp</a>
+</div></section><section class="coin-slide" id="glow-panel" role="tabpanel" aria-labelledby="glow-tab" inert aria-hidden="true"><div class="card" id="glow-shop"><div class="brand-heading"><img src="assets/glow.webp" alt="Glow Live logo"><div><p class="eyebrow">GLOW LIVE</p><h1>Glow Live Coins</h1></div></div><p>70,000 coins = TT$8</p><label for="glow-package">Choose your coin package</label><select id="glow-package"></select><div class="summary"><div>Coins<strong id="glow-coins"></strong></div><div>Total<strong id="glow-price"></strong></div></div><label for="glow-id">Glow Live ID</label><input id="glow-id" placeholder="Enter your Glow Live ID" inputmode="numeric"><a id="glow-order" class="whatsapp" target="_blank" rel="noopener">Order Glow Coins on WhatsApp</a><p class="hint">We confirm your ID, payment method and delivery details on WhatsApp before payment. These orders are handled in WhatsApp.</p></div></section><section class="coin-slide" id="eman-panel" role="tabpanel" aria-labelledby="eman-tab" inert aria-hidden="true"><div class="card" id="eman-shop"><div class="brand-heading"><img src="assets/eman.webp" alt="Eman Live logo"><div><p class="eyebrow">EMAN LIVE</p><h1>Eman Live Coins</h1></div></div><p>7,000 coins = 1 USDT</p><label for="eman-amount">How many coins?</label><input id="eman-amount" type="number" min="1000" step="1" value="7000" inputmode="numeric"><div class="quick-amounts"><button type="button" data-coins="1000">1k</button><button type="button" data-coins="5000">5k</button><button type="button" data-coins="10000">10k</button><button type="button" data-coins="15000">15k</button><button type="button" data-coins="70000">70k</button></div><div class="summary"><div>Coins<strong id="eman-coins"></strong></div><div>Total<strong id="eman-price"></strong></div></div><label for="eman-id">Eman Live ID</label><input id="eman-id" placeholder="Enter your Eman Live ID" inputmode="numeric"><a id="eman-order" class="whatsapp" target="_blank" rel="noopener">Order Eman Coins on WhatsApp</a><p class="hint">Any whole coin amount from 1,000 to 7,000,000. Price = coins ÷ 7,000, rounded to 2 decimals. First-recharge bonuses are excluded. Confirm your order on WhatsApp before payment.</p></div></section></div></section>
 
 <section id="orders" class="page">
 <div class="card">
@@ -92,15 +88,16 @@ Send USDT using the BNB Smart Chain (BEP20) network only.
 
 <section id="contact" class="page">
 <div class="card contact-card">
-<h1>Contact Eman Poppo Coins And Points</h1>
-<p>Need help with your order? Contact us directly on WhatsApp.</p>
+<h1>Contact EC Live Group Coins & Points</h1>
+<p>Need help with your order? Contact us directly on WhatsApp.</p><p><a href="mailto:eclivegroup@gmail.com">eclivegroup@gmail.com</a></p>
 <a class="whatsapp" href="https://wa.me/18683876714" target="_blank" rel="noopener">💬 Chat with us on WhatsApp</a>
 </div>
 </section>
 </main>
-<footer>Eman Poppo Coins And Points 🇹🇹 • Poppo Coins & Points</footer>
+<footer>EC Live Group Coins & Points 🇹🇹 • Poppo · Glow · Eman Live</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
-<script src="app.js?v=5"></script>
-</body>
+<script src="app.js?v=7"></script>
+<script src="coin-shops.js?v=7"></script>
+<script src="shop-swipe.js?v=7"></script></body>
 </html>

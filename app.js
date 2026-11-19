@@ -75,7 +75,9 @@ function updatePayment(){
     };
   }
 
-  if(!info) return;
+  $('binance').classList.toggle('hidden', !info);
+  $('bank').classList.toggle('hidden', !!info);
+  if(!info){ $('bank').textContent='Contact WhatsApp +1-868-387-6714 to confirm bank details before payment.'; return; }
 
   $('paymentTitle').textContent = info.title;
   $('paymentNetwork').textContent = info.network;
