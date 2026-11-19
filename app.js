@@ -5,15 +5,30 @@ packages.forEach((p,i)=>{
   let o=document.createElement('option');
   o.value=i;
   const usd=(p.price/7).toFixed(2);
-  o.textContent=`${p.coins.toLocaleString()} coins — TT$${p.price.toLocaleString()} / US$${usd} USDT`;
+  o.textContent=`${p.coins.toLocaleString()} coins — US$${usd} USD`;
   pkg.appendChild(o);
 });
 function update(){
   let p=packages[+pkg.value];
   const usd=(p.price/7).toFixed(2);
   $('coins').textContent=p.coins.toLocaleString();
-  $('price').textContent=`TT$${p.price.toLocaleString()} / US$${usd} USDT`;
+  $('price').textContent=`US$${usd} USD`;
+  updatePoppoCurrency();
 }
+function updatePoppoCurrency(){
+  const usd=CoinPricing.usd('poppo',Number(pkg.value)+1);
+  const currency=$('poppo-currency').value;
+  $('poppo-due').textContent=CoinPricing.display(usd,currency);
+  const crypto=currency==='CRYPTO';
+  $('poppo-crypto-inputs').classList.toggle('hidden',!crypto);
+  $('poppo-fiat-order').classList.toggle('hidden',crypto);
+  $('poppo-fiat-note').classList.toggle('hidden',crypto);
+  const message=`Poppo Live coin order\nName: ${$('name').value.trim() || '(please confirm)'}\nPoppo ID: ${$('pid').value.trim() || '(please confirm)'}\nCoins: ${packages[Number(pkg.value)].coins}\nPrice: US$${usd.toFixed(2)} USD\nPay in: ${currency}\nAmount to pay: ${CoinPricing.display(usd,currency)}\nShop rate: US$1 = TT$7\nPlease confirm payment details before I pay.`;
+  $('poppo-fiat-order').href='https://wa.me/18683876714?text='+encodeURIComponent(message);
+}
+$('poppo-currency').addEventListener('change',updatePoppoCurrency);
+$('name').addEventListener('input',updatePoppoCurrency);
+$('pid').addEventListener('input',updatePoppoCurrency);
 pkg.onchange=update; update();
 
 const paymentInfo={
@@ -102,6 +117,7 @@ document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
 function showResult(html){$('result').classList.remove('hidden');$('result').innerHTML=html}
 
 $('submit').onclick=async()=>{
+  if($('poppo-currency').value!=='CRYPTO'){ updatePoppoCurrency(); return; }
   if(!window.EMAN_SUPABASE_URL || !window.EMAN_SUPABASE_ANON_KEY){
     return showResult('<b>Setup needed.</b><br>The secure order system has not been connected yet. Please add your Supabase URL and anon key to <b>config.js</b>.');
   }
@@ -127,7 +143,7 @@ $('submit').onclick=async()=>{
     if(insert.error) throw insert.error;
 
     localStorage.setItem('lastEmanOrder',orderNo);
-    showResult(`<b>Order submitted successfully! 🎉</b><br><br>Order #: <b>${orderNo}</b><br>${p.coins.toLocaleString()} coins — TT$${p.price.toLocaleString()}<br>Payment: ${payment}<br>Status: <b>Pending</b><br><br>Please save your order number. You can use <b>My Orders</b> to check the status.`);
+    showResult(`<b>Order submitted successfully! 🎉</b><br><br>Order #: <b>${orderNo}</b><br>${p.coins.toLocaleString()} coins — US$${(p.price/7).toFixed(2)} USD<br>Payment: ${payment}<br>Status: <b>Pending</b><br><br>Please save your order number. You can use <b>My Orders</b> to check the status.`);
     $('name').value=''; $('pid').value=''; $('receipt').value='';
   }catch(e){
     console.error(e);
@@ -149,7 +165,7 @@ function showOrderNotification(status, orderNo){
   if(status==='Completed'){
     box.innerHTML=`🔔 <b>Order ${orderNo} completed!</b><br>Your Poppo coins have been sent successfully to your Poppo Live ID. Thank you for your purchase!`;
   }else if(status==='Rejected'){
-    box.innerHTML=`⚠️ <b>Order ${orderNo} was rejected.</b><br>Please contact Eman Agency on WhatsApp for assistance.`;
+    box.innerHTML=`⚠️ <b>Order ${orderNo} was rejected.</b><br>Please contact EC Live Group on WhatsApp for assistance.`;
   }else if(status==='Processing'){
     box.innerHTML=`🔔 <b>Order ${orderNo} is being processed.</b><br>We are preparing your Poppo coin top-up.`;
   }else if(status==='Paid'){
@@ -171,7 +187,7 @@ async function checkOrder(no,silent=false){
     return null;
   }
   box.classList.remove('hidden');
-  box.innerHTML=`<b>Order ${row.order_number}</b><br>${Number(row.coins).toLocaleString()} coins — TT$${Number(row.price_ttd).toLocaleString()}<br>Payment: ${row.payment_method}<br>Status: <b>${row.status}</b>`;
+  box.innerHTML=`<b>Order ${row.order_number}</b><br>${Number(row.coins).toLocaleString()} coins — US$${(Number(row.price_ttd)/7).toFixed(2)} USD<br>Payment: ${row.payment_method}<br>Status: <b>${row.status}</b>`;
 
   const key='emanStatus_'+row.order_number;
   const previous=localStorage.getItem(key);
@@ -259,5 +275,5 @@ if ('serviceWorker' in navigator) {
 }
 
 $('bankTransferBtn')?.addEventListener('click',()=>{
-  alert('Contact Us\n\nPlease contact Eman Agency on WhatsApp for bank transfer details.');
+  alert('Contact Us\n\nPlease contact EC Live Group on WhatsApp for bank transfer details.');
 });

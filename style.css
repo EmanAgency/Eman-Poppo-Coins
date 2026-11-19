@@ -371,3 +371,6 @@ footer{
 .coin-slide{display:flow-root;flex:0 0 100%;min-width:0;width:100%;scroll-snap-align:start;scroll-snap-stop:always;padding:4px 2px 0;box-sizing:border-box}
 .coin-slide .card{width:100%;box-sizing:border-box}
 @media(prefers-reduced-motion:reduce){.coin-panels{scroll-behavior:auto}}
+
+/* Four app tabs; prices stay in USD while the payment quote follows the choice. */
+.app-links{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.app-links [role=tab]{font-size:clamp(11px,2.8vw,15px);padding:12px 3px}.app-links [role=tab] span{text-align:center}.payment-amount{display:block;margin-top:10px;font-size:24px;color:#ffdf80}.coin-slide label{display:block}

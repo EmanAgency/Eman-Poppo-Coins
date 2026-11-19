@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#101828">
 <title>EC Live Group Coins & Points</title>
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
 <header><b>EC Live Group</b><span>Trinidad and Tobago</span></header>
@@ -18,22 +18,21 @@
 <button data-p="contact">📞 Contact</button>
 </nav>
 <main>
-<section id="buy" class="page active"><div class="shop-intro" style="padding:4px 0 16px"><div class="app-links" role="tablist" aria-label="Choose a live app"><button type="button" id="poppo-tab" role="tab" aria-controls="poppo-panel" aria-selected="true" tabindex="0" data-shop="0"><img src="assets/poppo.webp" alt="" width="36" height="36"><span>Poppo Live</span></button><button type="button" id="glow-tab" role="tab" aria-controls="glow-panel" aria-selected="false" tabindex="-1" data-shop="1"><img src="assets/glow.webp" alt="" width="36" height="36"><span>Glow Live</span></button><button type="button" id="eman-tab" role="tab" aria-controls="eman-panel" aria-selected="false" tabindex="-1" data-shop="2"><img src="assets/eman.webp" alt="" width="36" height="36"><span>Eman Live</span></button></div><p class="swipe-hint" id="shop-swipe-hint">Tap an app or swipe left and right to switch.</p></div>
+<section id="buy" class="page active"><div class="shop-intro" style="padding:4px 0 16px"><div class="app-links" role="tablist" aria-label="Choose a live app"><button type="button" id="poppo-tab" role="tab" aria-controls="poppo-panel" aria-selected="true" tabindex="0" data-shop="0"><img src="assets/poppo.webp" alt="" width="36" height="36"><span>Poppo Live</span></button><button type="button" id="glow-tab" role="tab" aria-controls="glow-panel" aria-selected="false" tabindex="-1" data-shop="1"><img src="assets/glow.webp" alt="" width="36" height="36"><span>Glow Live</span></button><button type="button" id="eman-tab" role="tab" aria-controls="eman-panel" aria-selected="false" tabindex="-1" data-shop="2"><img src="assets/eman.webp" alt="" width="36" height="36"><span>Eman Live</span></button><button type="button" id="comet-tab" role="tab" aria-controls="comet-panel" aria-selected="false" tabindex="-1" data-shop="3"><img src="assets/comet.webp" alt="" width="36" height="36"><span>Comet Live</span></button></div><p class="swipe-hint" id="shop-swipe-hint">Tap an app or swipe left and right to switch.</p></div>
 <div class="coin-panels" id="coin-panels" aria-describedby="shop-swipe-hint"><section class="coin-slide" id="poppo-panel" role="tabpanel" aria-labelledby="poppo-tab"><div class="card" id="poppo-shop">
 <div class="brand-heading"><img src="assets/poppo.webp" alt="Poppo Live logo"><div><p class="eyebrow">POPPO LIVE</p><h1>Buy Poppo Coins</h1></div></div>
 <div class="notice"><b>How it works:</b> Choose your coin package, make your payment, upload your receipt, and submit your order. We will review the payment and process the coins.</div>
 <label>Your Name</label><input id="name" placeholder="Enter your name" autocomplete="name">
 <label>Poppo Live ID</label><input id="pid" placeholder="Enter Poppo Live ID">
 <label>Coin Package</label><select id="pkg"></select>
-<div class="summary"><div>Coins<strong id="coins"></strong></div><div>Total<strong id="price"></strong></div></div>
-<label>Payment Method</label>
+<div class="summary"><div>Coins<strong id="coins"></strong></div><div>Price (USD)<strong id="price"></strong></div></div>
+<label for="poppo-currency">Pay in</label><select id="poppo-currency"><option value="USD">USD — US dollars</option><option value="TTD">TTD — Trinidad and Tobago dollars</option><option value="CRYPTO" selected>Crypto — USDT</option></select><div class="paybox"><b>Amount to pay</b><strong class="payment-amount" id="poppo-due"></strong><p class="hint">Shop rate: US$1 = TT$7. Crypto quotes use USDT at 1 USDT per US$1. The full order is calculated before rounding.</p></div><div id="poppo-crypto-inputs"><label for="pay">USDT network</label>
 <select id="pay">
   <option selected>USDT — BEP20 (BNB Smart Chain)</option>
   <option>USDT — TRC20 (Tron)</option>
   <option>USDT — ERC20 (Ethereum)</option>
-  <option>🏦 Bank Transfer</option>
 </select>
-<button type="button" id="bankTransferBtn" class="copy">🏦 Bank Transfer</button>
+
 <div id="bank" class="paybox hidden"></div>
 <div id="paypal" class="paybox hidden"></div>
 
@@ -58,22 +57,22 @@ Send USDT using the BNB Smart Chain (BEP20) network only.
 <input id="receipt" type="file" accept="image/*,.pdf">
 <p class="hint">Receipt is securely uploaded with your order. Maximum 5 MB.</p>
 <button id="submit" class="primary">Submit Order</button>
-<div id="result" class="result hidden"></div>
+</div><a id="poppo-fiat-order" class="whatsapp hidden" target="_blank" rel="noopener">Arrange payment on WhatsApp</a><p id="poppo-fiat-note" class="hint hidden">Confirm USD or TTD payment details with EC Live Group before paying. These orders are handled on WhatsApp and do not receive a website order number.</p><div id="result" class="result hidden"></div>
 </div><div class="card">
 <h1>💰 Sell Points</h1>
 <p>Need TTD? EC Live Group Coins & Points buys Poppo Points.</p>
 
 <div class="paybox">
 <b>Our Current Rate</b>
-<p><strong>100,000 Poppo Points = TT$70</strong></p>
-<p class="hint">US$1 = TT$7</p>
+<p><strong>100,000 Poppo Points = US$10.00</strong></p>
+<p class="hint">Equivalent to TT$70 at our fixed shop rate. Confirm payout details on WhatsApp.</p>
 </div>
 
 <p><strong>Important:</strong> Contact EC Live Group Coins & Points on WhatsApp before sending any Poppo Points.</p>
 <p class="hint">We will confirm the current rate and transaction details with you first. Do not send points until your transaction has been confirmed.</p>
 
 <a class="whatsapp" href="https://wa.me/18683876714" target="_blank" rel="noopener">💬 Contact us on WhatsApp</a>
-</div></section><section class="coin-slide" id="glow-panel" role="tabpanel" aria-labelledby="glow-tab" inert aria-hidden="true"><div class="card" id="glow-shop"><div class="brand-heading"><img src="assets/glow.webp" alt="Glow Live logo"><div><p class="eyebrow">GLOW LIVE</p><h1>Glow Live Coins</h1></div></div><p>70,000 coins = TT$8</p><label for="glow-package">Choose your coin package</label><select id="glow-package"></select><div class="summary"><div>Coins<strong id="glow-coins"></strong></div><div>Total<strong id="glow-price"></strong></div></div><label for="glow-id">Glow Live ID</label><input id="glow-id" placeholder="Enter your Glow Live ID" inputmode="numeric"><a id="glow-order" class="whatsapp" target="_blank" rel="noopener">Order Glow Coins on WhatsApp</a><p class="hint">We confirm your ID, payment method and delivery details on WhatsApp before payment. These orders are handled in WhatsApp.</p></div></section><section class="coin-slide" id="eman-panel" role="tabpanel" aria-labelledby="eman-tab" inert aria-hidden="true"><div class="card" id="eman-shop"><div class="brand-heading"><img src="assets/eman.webp" alt="Eman Live logo"><div><p class="eyebrow">EMAN LIVE</p><h1>Eman Live Coins</h1></div></div><p>7,000 coins = 1 USDT</p><label for="eman-amount">How many coins?</label><input id="eman-amount" type="number" min="1000" step="1" value="7000" inputmode="numeric"><div class="quick-amounts"><button type="button" data-coins="1000">1k</button><button type="button" data-coins="5000">5k</button><button type="button" data-coins="10000">10k</button><button type="button" data-coins="15000">15k</button><button type="button" data-coins="70000">70k</button></div><div class="summary"><div>Coins<strong id="eman-coins"></strong></div><div>Total<strong id="eman-price"></strong></div></div><label for="eman-id">Eman Live ID</label><input id="eman-id" placeholder="Enter your Eman Live ID" inputmode="numeric"><a id="eman-order" class="whatsapp" target="_blank" rel="noopener">Order Eman Coins on WhatsApp</a><p class="hint">Any whole coin amount from 1,000 to 7,000,000. Price = coins ÷ 7,000, rounded to 2 decimals. First-recharge bonuses are excluded. Confirm your order on WhatsApp before payment.</p></div></section></div></section>
+</div></section><section class="coin-slide" id="glow-panel" role="tabpanel" aria-labelledby="glow-tab" inert aria-hidden="true"><div class="card" id="glow-shop"><div class="brand-heading"><img src="assets/glow.webp" alt="Glow Live logo"><div><p class="eyebrow">GLOW LIVE</p><h1>Glow Live Coins</h1></div></div><p>70,000 coins = US$1.14</p><label for="glow-package">Choose your coin package</label><select id="glow-package"></select><div class="summary"><div>Coins<strong id="glow-coins"></strong></div><div>Price (USD)<strong id="glow-price"></strong></div></div><label for="glow-currency">Pay in</label><select id="glow-currency"><option value="USD">USD — US dollars</option><option value="TTD">TTD — Trinidad and Tobago dollars</option><option value="CRYPTO" selected>Crypto — USDT</option></select><div class="paybox"><b>Amount to pay</b><strong class="payment-amount" id="glow-due"></strong><p class="hint">Shop rate: US$1 = TT$7. Crypto quotes use USDT at 1 USDT per US$1. The full order is calculated before rounding.</p></div><label for="glow-id">Glow Live ID</label><input id="glow-id" placeholder="Enter your Glow Live ID" inputmode="numeric"><a id="glow-order" class="whatsapp" target="_blank" rel="noopener">Order Glow Coins on WhatsApp</a><p class="hint">We confirm your ID, payment method and delivery details on WhatsApp before payment. These orders are handled in WhatsApp.</p></div></section><section class="coin-slide" id="eman-panel" role="tabpanel" aria-labelledby="eman-tab" inert aria-hidden="true"><div class="card" id="eman-shop"><div class="brand-heading"><img src="assets/eman.webp" alt="Eman Live logo"><div><p class="eyebrow">EMAN LIVE</p><h1>Eman Live Coins</h1></div></div><p>7,000 coins = US$1.00</p><label for="eman-amount">How many coins?</label><input id="eman-amount" type="number" min="1000" step="1" value="7000" inputmode="numeric"><div class="quick-amounts"><button type="button" data-coins="1000">1k</button><button type="button" data-coins="5000">5k</button><button type="button" data-coins="10000">10k</button><button type="button" data-coins="15000">15k</button><button type="button" data-coins="70000">70k</button></div><div class="summary"><div>Coins<strong id="eman-coins"></strong></div><div>Price (USD)<strong id="eman-price"></strong></div></div><label for="eman-currency">Pay in</label><select id="eman-currency"><option value="USD">USD — US dollars</option><option value="TTD">TTD — Trinidad and Tobago dollars</option><option value="CRYPTO" selected>Crypto — USDT</option></select><div class="paybox"><b>Amount to pay</b><strong class="payment-amount" id="eman-due"></strong><p class="hint">Shop rate: US$1 = TT$7. Crypto quotes use USDT at 1 USDT per US$1. The full order is calculated before rounding.</p></div><label for="eman-id">Eman Live ID</label><input id="eman-id" placeholder="Enter your Eman Live ID" inputmode="numeric"><a id="eman-order" class="whatsapp" target="_blank" rel="noopener">Order Eman Coins on WhatsApp</a><p class="hint">Any whole coin amount from 1,000 to 7,000,000. Price = coins ÷ 7,000, rounded to 2 decimals. First-recharge bonuses are excluded. Confirm your order on WhatsApp before payment.</p></div></section><section class="coin-slide" id="comet-panel" role="tabpanel" aria-labelledby="comet-tab" inert aria-hidden="true"><div class="card" id="comet-shop"><div class="brand-heading"><img src="assets/comet.webp" alt="Comet Live logo"><div><p class="eyebrow">COMET LIVE</p><h1>Comet Live Coins</h1></div></div><p>7,000 coins = US$1.00</p><label for="comet-amount">How many coins?</label><input id="comet-amount" type="number" min="1000" step="1" value="7000" inputmode="numeric"><div class="quick-amounts"><button type="button" data-coins="1000">1k</button><button type="button" data-coins="5000">5k</button><button type="button" data-coins="10000">10k</button><button type="button" data-coins="15000">15k</button><button type="button" data-coins="70000">70k</button></div><div class="summary"><div>Coins<strong id="comet-coins"></strong></div><div>Price (USD)<strong id="comet-price"></strong></div></div><label for="comet-currency">Pay in</label><select id="comet-currency"><option value="USD">USD — US dollars</option><option value="TTD">TTD — Trinidad and Tobago dollars</option><option value="CRYPTO" selected>Crypto — USDT</option></select><div class="paybox"><b>Amount to pay</b><strong class="payment-amount" id="comet-due"></strong><p class="hint">Shop rate: US$1 = TT$7. Crypto quotes use USDT at 1 USDT per US$1. The full order is calculated before rounding.</p></div><label for="comet-id">Comet Live ID</label><input id="comet-id" placeholder="Enter your Comet Live ID" inputmode="numeric"><a id="comet-order" class="whatsapp" target="_blank" rel="noopener">Order Comet Coins on WhatsApp</a><p class="hint">Any whole coin amount from 1,000 to 7,000,000. Price = coins ÷ 7,000, rounded to 2 decimals. First-recharge bonuses are excluded. Confirm your order on WhatsApp before payment.</p></div></section></div></section>
 
 <section id="orders" class="page">
 <div class="card">
@@ -97,8 +96,9 @@ Send USDT using the BNB Smart Chain (BEP20) network only.
 <footer>EC Live Group · Trinidad and Tobago</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
-<script src="app.js?v=7"></script>
-<script src="coin-shops.js?v=7"></script>
-<script src="shop-swipe.js?v=7"></script></body>
+<script src="pricing.js?v=9"></script>
+<script src="app.js?v=9"></script>
+<script src="coin-shops.js?v=9"></script>
+<script src="shop-swipe.js?v=9"></script></body>
 </html>
 
