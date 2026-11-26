@@ -25,7 +25,11 @@ jobs:
           java-version: '17'
 
       - name: Install Android SDK
+        shell: bash
         run: |
+          set +o pipefail
+          yes | sdkmanager --licenses >/dev/null
+          set -o pipefail
           sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
       - uses: gradle/actions/setup-gradle@v4
@@ -42,3 +46,4 @@ jobs:
         with:
           name: Eman-Poppo-Coins-APK
           path: Eman-Poppo-Coins.apk
+          if-no-files-found: error
