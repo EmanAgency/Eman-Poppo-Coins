@@ -1,4 +1,24 @@
-# Eman Poppo Coins Android app
-This is a standalone Java Android WebView project. It loads https://emancoins.com/ over HTTPS and hides the website install button inside the app. Website files and Supabase configuration are not included or modified. Receipt selection supports images and PDFs; external HTTPS and WhatsApp links open externally. Web notifications and native push are not implemented.
+# Eman Coins Android — website match v1.2
 
-Safest upload: create a separate GitHub repository, extract this ZIP and upload its contents including the hidden .github folder. In Actions run Build Eman Coins Android APK, then download its artifact and extract the APK. Alternatively merge into the existing repository only after backing up and checking existing Android files and application ID. Do not overwrite website files. This project uses a new assumed application ID com.emanagency.coins and debug signing; it is not guaranteed to update an older APK. Stable release signing must be configured before distribution. No Android build or live payment test was performed in the preparation environment. Test receipt upload, clipboard, navigation, payment details and WhatsApp before distribution.
+The Android app opens https://emancoins.com/ directly. It uses the live website for its design, prices, coin shops, order forms and admin pages. Website updates appear in the app when refreshed/reopened. Internet access is required. No website files or Supabase settings were changed.
+
+## Upload and build from your phone
+1. Extract this ZIP.
+2. In EmanAgency/Eman-Poppo-Coins, upload the contents inside Eman-Poppo-Coins-main, including .github/workflows. Keep your existing website files.
+3. Delete the old app/src/main/jave folder in GitHub if it still exists. The corrected folder is app/src/main/java.
+4. Open Actions → Build Eman Coins Android APK → Run workflow.
+5. After the build succeeds, open the run, download Eman-Poppo-Coins-APK under Artifacts, extract it, and install Eman-Poppo-Coins.apk.
+
+## Changes
+- Corrected the Java source folder so Android includes MainActivity.
+- Preserved the website layout and install control, with no page modifications.
+- Enabled the website viewport, local storage and persistent cookies.
+- Added JavaScript alert/confirmation dialogs for validation and admin messages.
+- Kept image/PDF receipt selection and Android Back navigation.
+- Open external links and HTTPS downloads in the appropriate phone app.
+- Accepted Android SDK licenses before the workflow installs build tools.
+
+## Verification
+The current live homepage was downloaded and matched the supplied index.html byte for byte. Static source, XML and workflow checks were performed. This workspace has no Android SDK or Gradle installed, so an APK build and device/payment tests were not performed. Use the GitHub Actions build and verify receipt upload, copy wallet address, login persistence, order tracking and admin receipt opening on your phone.
+
+This build uses the existing application ID com.emanagency.coins and debug signing. Installation over an older APK requires its signing key to match; GitHub runner debug keys can change between runs. Do not uninstall an existing app just to work around a signing mismatch without first preserving any data you need. Native push notifications are not included.
